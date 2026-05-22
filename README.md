@@ -1,4 +1,4 @@
-# 🧠 EchoMind – Memory Capsule Manager
+#  EchoMind – Memory Capsule Manager
 
 EchoMind is a modern React-based memory capsule application that helps users preserve meaningful moments, thoughts, and reflections in a beautiful and organized way.
 
@@ -6,21 +6,21 @@ Instead of using a traditional notes app, EchoMind focuses on emotional memories
 
 ---
 
-## ✨ Features
+##  Features
 
-* 🧠 Save meaningful memories
-* 📝 Add memory title and reflection
-* ❌ Delete memory capsules
-* 📅 Auto date display
-* ⚛️ Built using React Hooks
-* 🔄 Dynamic rendering using map()
-* ✅ Form validation
-* 🌌 Modern futuristic UI
-* 📱 Responsive design
+*  Save meaningful memories
+*  Add memory title and reflection
+*  Delete memory capsules
+*  Auto date display
+*  Built using React Hooks
+*  Dynamic rendering using map()
+*  Form validation
+*  Modern futuristic UI
+*  Responsive design
 
 ---
 
-## 🛠️ Technologies Used
+##  Technologies Used
 
 * React.js
 * JavaScript
@@ -29,7 +29,7 @@ Instead of using a traditional notes app, EchoMind focuses on emotional memories
 
 ---
 
-## 📚 React Concepts Used
+##  React Concepts Used
 
 * useState()
 * useEffect()
@@ -39,12 +39,12 @@ Instead of using a traditional notes app, EchoMind focuses on emotional memories
 
 ---
 
-## 🚀 How to Run the Project
+##  How to Run the Project
 
 1. Clone the repository
 
 ```bash
-git clone YOUR_GITHUB_LINK
+git clone https://github.com/Yashavini/EchoMind.git 
 ```
 
 2. Open project folder
@@ -73,12 +73,12 @@ The goal of EchoMind is to create a digital space where users can preserve memor
 
 ---
 
-## 👨‍💻 Developed By
+##  Developed By
 
 Yashavini N
 
 ---
 
-## 📸 Preview
+##  Preview
 
 Modern futuristic memory management interface built with React.
