@@ -1,1 +1,14 @@
-
+{
+  "name": "cit-mern-assignment-4",
+  "version": "1.0.0",
+  "description": "Student Management CRUD API with MongoDB & Mongoose Integration",
+  "main": "dbServer.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node dbServer.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "mongoose": "^8.0.0"
+  }
+}
