@@ -1,1 +1,13 @@
-
+{
+  "name": "cit-mern-assignment-3",
+  "version": "1.0.0",
+  "description": "Student Management REST API with Local Array Storage",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
