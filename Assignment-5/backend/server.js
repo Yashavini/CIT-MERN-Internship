@@ -8,29 +8,24 @@ const User = require('./models/User');
 const Capsule = require('./models/Capsule');
 
 const app = express();
-app.use(express.json({ limit: '10mb' })); // Base64 images processing limit buffer
+app.use(express.json({ limit: '15mb' }));
 app.use(cors());
 
 mongoose.connect(process.env.MONGO_URI)
-    .then(() => console.log('✅ MongoDB Matrix Linked Completely'))
-    .catch(err => console.error('❌ DB Context Intercepted:', err));
+    .then(() => console.log('✅ Connected safely to MongoDB Matrix'))
+    .catch(err => console.error('❌ Database Link Intercepted:', err));
 
-// --- MIDDLWARE TO VERIFY JWT FOR CURRENT LOGGED IN USER ---
 const verifyToken = (req, res, next) => {
     const authHeader = req.headers['authorization'];
     if (!authHeader) return res.status(401).json({ message: 'Cipher token validation missing.' });
-    
     try {
         const token = authHeader.split(' ')[1];
-        const verified = jwt.verify(token, process.env.JWT_SECRET);
-        req.user = verified;
+        req.user = jwt.verify(token, process.env.JWT_SECRET);
         next();
-    } catch (err) {
-        res.status(403).json({ message: 'Session payload invalid.' });
-    }
+    } catch (err) { res.status(403).json({ message: 'Session payload invalid.' }); }
 };
 
-// --- AUTHENTICATION ENGINES ---
+// Auth Routes
 app.post('/api/auth/register', async (req, res) => {
     try {
         const { username, password } = req.body;
@@ -50,27 +45,24 @@ app.post('/api/auth/login', async (req, res) => {
         const { username, password } = req.body;
         const user = await User.findOne({ username: username.toLowerCase() });
         if(!user || !(await bcrypt.compare(password, user.password))) {
-            return res.status(400).json({ message: "Invalid system credentials." });
+            return res.status(400).json({ message: "Invalid credentials." });
         }
-        const token = jwt.sign({ id: user._id, username: user.username }, process.env.JWT_SECRET, { expiresIn: '4h' });
+        const token = jwt.sign({ id: user._id, username: user.username }, process.env.JWT_SECRET, { expiresIn: '24h' });
         res.status(200).json({ success: true, token, username: user.username });
     } catch(err) { res.status(500).json({ error: err.message }); }
 });
 
-// --- CORE CAPSULES WORKSPACE CONTROLLERS ---
-
-// Fetch only current logged-in user profile data metrics nodes
+// Data Controllers
 app.get('/api/capsules', verifyToken, async (req, res) => {
     try {
-        const userCapsules = await Capsule.find({ userId: req.user.id }).sort({ createdAt: -1 });
-        res.status(200).json({ success: true, data: userCapsules });
+        const data = await Capsule.find({ userId: req.user.id }).sort({ createdAt: -1 });
+        res.status(200).json({ success: true, data });
     } catch(err) { res.status(500).json({ error: err.message }); }
 });
 
-// Commit clean empty deployments directly to cluster collection array paths
 app.post('/api/capsules', verifyToken, async (req, res) => {
     try {
-        const { title, description, isPrivate, password, imageLocalUrl } = req.body;
+        const { title, description, isPrivate, password, imageLocalUrl, tag } = req.body;
         const blueprint = new Capsule({
             userId: req.user.id,
             title,
@@ -79,19 +71,18 @@ app.post('/api/capsules', verifyToken, async (req, res) => {
             password: isPrivate ? password : null,
             imageLocalUrl,
             date: new Date().toLocaleDateString(),
-            history: [`Created on ${new Date().toLocaleDateString()}`]
+            history: [`Capsule deployed on ${new Date().toLocaleDateString()}`]
         });
         await blueprint.save();
         res.status(201).json({ success: true, data: blueprint });
     } catch(err) { res.status(500).json({ error: err.message }); }
 });
 
-// Mutate payload logic fields configurations parameters
 app.put('/api/capsules/:id', verifyToken, async (req, res) => {
     try {
         const { title, description, history } = req.body;
         const updated = await Capsule.findOneAndUpdate(
-            { _id: req.id, userId: req.user.id },
+            { _id: req.params.id, userId: req.user.id },
             { title, description, history },
             { new: true }
         );
@@ -99,7 +90,6 @@ app.put('/api/capsules/:id', verifyToken, async (req, res) => {
     } catch(err) { res.status(500).json({ error: err.message }); }
 });
 
-// Purge vector channels permanently from DB tracks
 app.delete('/api/capsules/:id', verifyToken, async (req, res) => {
     try {
         await Capsule.findOneAndDelete({ _id: req.params.id, userId: req.user.id });
@@ -108,4 +98,4 @@ app.delete('/api/capsules/:id', verifyToken, async (req, res) => {
 });
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`🚀 Node Engine Live running on port ${PORT}`));
+app.listen(PORT, () => console.log(`🚀 Matrix Server Up on port ${PORT}`));
