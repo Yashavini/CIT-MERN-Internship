@@ -194,12 +194,12 @@ export default function App() {
               <input type="text" className="form-control" placeholder="Username" value={authUsername} onChange={e => setAuthUsername(e.target.value)} required />
               <input type="password" className="form-control" placeholder="Password" value={authPassword} onChange={e => setAuthPassword(e.target.value)} required />
               <button type="submit" className="btn-submit" style={{ marginTop: '25px' }}>
-                {authMode === 'login' ? 'Login' : 'Return to Login'}
+                {authMode === 'login' ? 'Login' : 'Signup'}
               </button>
             </form>
             
             <p onClick={() => setAuthMode(authMode === 'login' ? 'register' : 'login')} style={{ textAlign: 'center', cursor: 'pointer', fontSize: '13px', color: '#6366f1', marginTop: '20px', textDecoration: 'underline' }}>
-              {authMode === 'login' ? "Create New Account" : "Return to active system log-in interface"}
+              {authMode === 'login' ? "Create New Account" : "Return to Login"}
             </p>
           </div>
         </div>
