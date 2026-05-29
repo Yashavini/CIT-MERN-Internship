@@ -191,15 +191,15 @@ export default function App() {
             <p style={{ color: '#64748b', fontSize: '11px', letterSpacing: '2px', marginBottom: '35px' }}>Your second brain for meaningful memories.</p>
             
             <form onSubmit={handleSystemAuth}>
-              <input type="text" className="form-control" placeholder="Identity Label Identifier" value={authUsername} onChange={e => setAuthUsername(e.target.value)} required />
-              <input type="password" className="form-control" placeholder="Security Password Protocol" value={authPassword} onChange={e => setAuthPassword(e.target.value)} required />
+              <input type="text" className="form-control" placeholder="Username" value={authUsername} onChange={e => setAuthUsername(e.target.value)} required />
+              <input type="password" className="form-control" placeholder="Password" value={authPassword} onChange={e => setAuthPassword(e.target.value)} required />
               <button type="submit" className="btn-submit" style={{ marginTop: '25px' }}>
-                {authMode === 'login' ? 'DECIPHER VAULT SPACE' : 'INITIALIZE REGISTRY SCHEMA'}
+                {authMode === 'login' ? 'Login' : 'Return to Login'}
               </button>
             </form>
             
             <p onClick={() => setAuthMode(authMode === 'login' ? 'register' : 'login')} style={{ textAlign: 'center', cursor: 'pointer', fontSize: '13px', color: '#6366f1', marginTop: '20px', textDecoration: 'underline' }}>
-              {authMode === 'login' ? "Register Core Security Identity Schema" : "Return to active system log-in interface"}
+              {authMode === 'login' ? "Create New Account" : "Return to active system log-in interface"}
             </p>
           </div>
         </div>
