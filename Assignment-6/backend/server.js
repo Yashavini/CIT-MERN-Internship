@@ -303,6 +303,14 @@ app.delete('/api/capsules/:id', verifyToken, async (req, res) => {
   }
 });
 
+app.get('/test-db', async (req, res) => {
+  try {
+    await mongoose.connection.db.admin().ping();
+    res.send('MongoDB Connected');
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+});
 // ==========================================
 // SERVER
 // ==========================================
@@ -311,3 +319,4 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
+
