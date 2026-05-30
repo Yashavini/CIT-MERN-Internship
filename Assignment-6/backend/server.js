@@ -317,6 +317,13 @@ app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
 
-app.get('/mongo-uri-check', (req, res) => {
-  res.send(process.env.MONGO_URI ? "MONGO_URI FOUND" : "MONGO_URI MISSING");
+app.get('/mongo-error', async (req, res) => {
+  try {
+    await mongoose.connection.db.admin().ping();
+    res.json({ success: true });
+  } catch (err) {
+    res.json({
+      error: err.message
+    });
+  }
 });
