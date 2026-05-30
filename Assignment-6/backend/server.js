@@ -317,13 +317,9 @@ app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
 
-app.get('/mongo-error', async (req, res) => {
-  try {
-    await mongoose.connection.db.admin().ping();
-    res.json({ success: true });
-  } catch (err) {
-    res.json({
-      error: err.message
-    });
-  }
+app.get('/mongo-debug', (req, res) => {
+  res.json({
+    readyState: mongoose.connection.readyState,
+    uriStart: process.env.MONGO_URI?.substring(0, 60)
+  });
 });
