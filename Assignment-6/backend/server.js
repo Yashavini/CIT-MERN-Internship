@@ -317,3 +317,6 @@ app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
 
+app.get('/mongo-uri-check', (req, res) => {
+  res.send(process.env.MONGO_URI ? "MONGO_URI FOUND" : "MONGO_URI MISSING");
+});
