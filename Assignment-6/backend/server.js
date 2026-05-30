@@ -303,13 +303,10 @@ app.delete('/api/capsules/:id', verifyToken, async (req, res) => {
   }
 });
 
-app.get('/test-db', async (req, res) => {
-  try {
-    await mongoose.connection.db.admin().ping();
-    res.send('MongoDB Connected');
-  } catch (err) {
-    res.status(500).send(err.message);
-  }
+app.get('/test-db', (req, res) => {
+    res.json({
+        readyState: mongoose.connection.readyState
+    });
 });
 // ==========================================
 // SERVER
